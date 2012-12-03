@@ -1,7 +1,6 @@
-<p style font-size="20">1</p>
 <?php
 
-echo '<p style font-size="20">1</p>'; 
+echo '1'; 
 //require_once(dirname(__FILE__) . '/../../config.php');
 echo '2';
 //require_once($CFG->dirroot.'/local/ual_event/event_form.php');
@@ -163,4 +162,4 @@ echo $OUTPUT->footer();
 
 */
 
-?>
+

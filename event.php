@@ -46,7 +46,7 @@
  * @package calendar
  */
 
-require_once('../config.php');
+require_once('../../config.php');
 require_once($CFG->dirroot.'/local/ual_event/event_form.php');
 require_once($CFG->dirroot.'/calendar/lib.php');
 require_once($CFG->dirroot.'/course/lib.php');

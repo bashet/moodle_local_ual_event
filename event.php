@@ -47,16 +47,16 @@
  */
 
 echo '1'; 
-require_once(dirname(__FILE__) . '/../../config.php');
+//require_once(dirname(__FILE__) . '/../../config.php');
 echo ' 2';
 //require_once($CFG->dirroot.'/local/ual_event/event_form.php');
 echo ' 3';
-require_once($CFG->dirroot.'/calendar/lib.php');
+//require_once($CFG->dirroot.'/calendar/lib.php');
 echo ' 4';
-require_once($CFG->dirroot.'/course/lib.php');
+//require_once($CFG->dirroot.'/course/lib.php');
 echo ' 5';
 
-require_login();
+//require_login();
 /*
 $action = optional_param('action', 'new', PARAM_ALPHA);
 $eventid = optional_param('id', 0, PARAM_INT);

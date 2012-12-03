@@ -196,8 +196,8 @@ $calendar->add_sidecalendar_blocks($renderer);
 
 echo $OUTPUT->header();
 echo $renderer->start_layout();
-echo '<h3>'.get_string('calendar', 'calendar') . '</h3>';
-echo $OUTPUT->heading($title);
+echo $OUTPUT->heading(get_string('calendar', 'calendar'));
+echo '<h3>'.$title. '</h3>';
 $mform->display();
 echo $renderer->complete_layout();
 echo $OUTPUT->footer();

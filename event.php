@@ -1,14 +1,14 @@
 <?php
 
-echo '1'; 
+echo '<p style font-size="20">1</p>'; 
 //require_once(dirname(__FILE__) . '/../../config.php');
-echo ' 2';
+echo '2';
 //require_once($CFG->dirroot.'/local/ual_event/event_form.php');
-echo ' 3';
+echo '3';
 //require_once($CFG->dirroot.'/calendar/lib.php');
-echo ' 4';
+echo '4';
 //require_once($CFG->dirroot.'/course/lib.php');
-echo ' 5';
+echo '5';
 
 //require_login();
 /*

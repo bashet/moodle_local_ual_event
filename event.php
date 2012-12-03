@@ -57,7 +57,7 @@ require_once($CFG->dirroot.'/course/lib.php');
 echo ' 5';
 
 require_login();
-
+/*
 $action = optional_param('action', 'new', PARAM_ALPHA);
 $eventid = optional_param('id', 0, PARAM_INT);
 $courseid = optional_param('courseid', SITEID, PARAM_INT);
@@ -205,3 +205,5 @@ echo $OUTPUT->heading($title);
 $mform->display();
 echo $renderer->complete_layout();
 echo $OUTPUT->footer();
+
+*/

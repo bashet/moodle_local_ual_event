@@ -49,7 +49,7 @@
 echo '1'; 
 require_once(dirname(__FILE__) . '/../../config.php');
 echo ' 2';
-require_once($CFG->dirroot.'/local/ual_event/event_form.php');
+//require_once($CFG->dirroot.'/local/ual_event/event_form.php');
 echo ' 3';
 require_once($CFG->dirroot.'/calendar/lib.php');
 echo ' 4';

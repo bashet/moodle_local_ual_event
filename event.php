@@ -119,7 +119,7 @@ if ($eventid !== 0) {
         print_error('nopermissions');
     }
 } else {
-    $title = get_string('newevent', 'calendar');
+    $title = get_string('addanewevent', 'local_ual_event');
     calendar_get_allowed_types($formoptions->eventtypes, $course);
     $event = new stdClass();
     $event->action = $action;
@@ -196,6 +196,7 @@ $calendar->add_sidecalendar_blocks($renderer);
 
 echo $OUTPUT->header();
 echo $renderer->start_layout();
+echo '<h3>'.get_string('calendar', 'calendar') . '</h3>';
 echo $OUTPUT->heading($title);
 $mform->display();
 echo $renderer->complete_layout();

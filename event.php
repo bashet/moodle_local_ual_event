@@ -198,6 +198,7 @@ echo $OUTPUT->header();
 echo $renderer->start_layout();
 echo $OUTPUT->heading(get_string('calendar', 'calendar'));
 echo '<h3>'.$title. '</h3>';
-echo $mform->definition();
+$mform->definition();
+echo $mform->show_it();
 echo $renderer->complete_layout();
 echo $OUTPUT->footer();

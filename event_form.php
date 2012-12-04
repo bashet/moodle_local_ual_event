@@ -39,6 +39,13 @@ require_once($CFG->dirroot.'/lib/formslib.php');
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class event_form extends moodleform {
+    
+    protected $event_content ='';
+    
+    public function show_it() {
+        return $event_content;
+    }
+    
     /**
      * The form definition
      */
@@ -208,8 +215,6 @@ class event_form extends moodleform {
         $this->add_action_buttons(false, get_string('savechanges'));
         
         $event_content .= $mform;
-        
-        return $event_content;
     }
 
     /**

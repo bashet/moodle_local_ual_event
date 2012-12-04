@@ -161,47 +161,47 @@ class event_form extends moodleform {
         
         //$event_content .= html_writer::tag('input', array('name'=>'action','type'=>'hidden'));
         
-        $mform->addElement('date_time_selector', 'timestart', get_string('date')); //added by abdul
-        $mform->addRule('timestart', get_string('required'), 'required'); //added by abdul
+        $this->_form->addElement('date_time_selector', 'timestart', get_string('date')); //added by abdul
+        $this->_form->addRule('timestart', get_string('required'), 'required'); //added by abdul
         
         
         
-        $mform->addElement('editor', 'description', get_string('eventdescription','calendar'), null, $this->_customdata->event->editoroptions);
-        $mform->setType('description', PARAM_RAW);
+        $this->_form->addElement('editor', 'description', get_string('eventdescription','calendar'), null, $this->_customdata->event->editoroptions);
+        $this->_form->setType('description', PARAM_RAW);
 
         /*$mform->addElement('date_time_selector', 'timestart', get_string('date'));
         $mform->addRule('timestart', get_string('required'), 'required');*/// orginal
 
-        $mform->addElement('radio', 'duration', get_string('eventduration', 'calendar'), get_string('durationnone', 'calendar'), 0);
+        $this->_form->addElement('radio', 'duration', get_string('eventduration', 'calendar'), get_string('durationnone', 'calendar'), 0);
 
-        $mform->addElement('radio', 'duration', null, get_string('durationuntil', 'calendar'), 1);
-        $mform->addElement('date_time_selector', 'timedurationuntil', '&nbsp;');
-        $mform->disabledIf('timedurationuntil','duration','noteq', 1);
+        $this->_form->addElement('radio', 'duration', null, get_string('durationuntil', 'calendar'), 1);
+        $this->_form->addElement('date_time_selector', 'timedurationuntil', '&nbsp;');
+        $this->_form->disabledIf('timedurationuntil','duration','noteq', 1);
 
-        $mform->addElement('radio', 'duration', null, get_string('durationminutes', 'calendar'), 2);
-        $mform->addElement('text', 'timedurationminutes', null);
-        $mform->setType('timedurationminutes', PARAM_INT);
-        $mform->disabledIf('timedurationminutes','duration','noteq', 2);
+        $this->_form->addElement('radio', 'duration', null, get_string('durationminutes', 'calendar'), 2);
+        $this->_form->addElement('text', 'timedurationminutes', null);
+        $this->_form->setType('timedurationminutes', PARAM_INT);
+        $this->_form->disabledIf('timedurationminutes','duration','noteq', 2);
 
-        $mform->setDefault('duration', ($hasduration)?1:0);
+        $this->_form->setDefault('duration', ($hasduration)?1:0);
 
         if ($newevent) {
 
-            $mform->addElement('checkbox', 'repeat', get_string('repeatevent', 'calendar'), null, 'repeat');
-            $mform->addElement('text', 'repeats', get_string('repeatweeksl', 'calendar'), 'maxlength="10" size="10"');
-            $mform->setType('repeats', PARAM_INT);
-            $mform->setDefault('repeats', 1);
-            $mform->disabledIf('repeats','repeat','notchecked');
+            $this->_form->addElement('checkbox', 'repeat', get_string('repeatevent', 'calendar'), null, 'repeat');
+            $this->_form->addElement('text', 'repeats', get_string('repeatweeksl', 'calendar'), 'maxlength="10" size="10"');
+            $this->_form->setType('repeats', PARAM_INT);
+            $this->_form->setDefault('repeats', 1);
+            $this->_form->disabledIf('repeats','repeat','notchecked');
 
         } else if ($repeatedevents) {
-            $mform->addElement('hidden', 'repeatid');
-            $mform->setType('repeatid', PARAM_INT);
+            $this->_form->addElement('hidden', 'repeatid');
+            $this->_form->setType('repeatid', PARAM_INT);
 
-            $mform->addElement('header', 'repeatedevents', get_string('repeatedevents', 'calendar'));
-            $mform->addElement('radio', 'repeateditall', null, get_string('repeateditall', 'calendar', $this->_customdata->event->eventrepeats), 1);
-            $mform->addElement('radio', 'repeateditall', null, get_string('repeateditthis', 'calendar'), 0);
+            $this->_form->addElement('header', 'repeatedevents', get_string('repeatedevents', 'calendar'));
+            $this->_form->addElement('radio', 'repeateditall', null, get_string('repeateditall', 'calendar', $this->_customdata->event->eventrepeats), 1);
+            $this->_form->addElement('radio', 'repeateditall', null, get_string('repeateditthis', 'calendar'), 0);
 
-            $mform->setDefault('repeateditall', 1);
+            $this->_form->setDefault('repeateditall', 1);
 
         }
 

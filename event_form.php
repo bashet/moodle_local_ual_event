@@ -65,7 +65,7 @@ class event_form extends moodleform {
             //$mform->addRule('name', get_string('required'), 'required'); //added by abdul
             //$mform->setType('name', PARAM_TEXT); //added by abdul
             
-            $event_content .= html_writer::start_tag('label', array('for'=>'eventtype');
+            $event_content .= html_writer::start_tag('label', array('for'=>'eventtype'));
             $event_content .= get_string('eventkind', 'calendar');
             $event_content .= html_writer::end_tag('label');
             $event_content .= html_writer::start_tag('select', array('id'=>'eventtype','name'=>'eventtype'));

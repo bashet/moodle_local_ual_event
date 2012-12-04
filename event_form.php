@@ -68,7 +68,6 @@ class event_form extends moodleform {
             //$mform->addElement('label', 'calendar_print', get_string('calendarprintlabel', 'local_ual_event'), $options); //added by abdul
             //$mform->addElement('label', 'newevent', get_string('addanewevent', 'local_ual_event'), $options); //added by abdul
             
-            $mform->addElement('header', 'group1','');
             $mform->addElement('text', 'name', get_string('eventname','calendar'), 'size="50"');//added by abdul
             $mform->addRule('name', get_string('required'), 'required'); //added by abdul
             $mform->setType('name', PARAM_TEXT); //added by abdul
@@ -119,7 +118,7 @@ class event_form extends moodleform {
         $mform->addElement('date_time_selector', 'timestart', get_string('date')); //added by abdul
         $mform->addRule('timestart', get_string('required'), 'required'); //added by abdul
         
-        $mform->addElement('header', 'group2','');
+        $mform->addElement('html', '<hr>');
         
         $mform->addElement('editor', 'description', get_string('eventdescription','calendar'), null, $this->_customdata->event->editoroptions);
         $mform->setType('description', PARAM_RAW);
@@ -127,7 +126,7 @@ class event_form extends moodleform {
         /*$mform->addElement('date_time_selector', 'timestart', get_string('date'));
         $mform->addRule('timestart', get_string('required'), 'required');*/// orginal
         
-        $mform->addElement('header', 'group3','');
+        $mform->addElement('html', '<hr>');
         $mform->addElement('radio', 'duration', get_string('eventduration', 'calendar'), get_string('durationnone', 'calendar'), 0);
 
         $mform->addElement('radio', 'duration', null, get_string('durationuntil', 'calendar'), 1);
@@ -141,7 +140,7 @@ class event_form extends moodleform {
 
         $mform->setDefault('duration', ($hasduration)?1:0);
         
-        $mform->addElement('header', 'group4','');
+        $mform->addElement('html', '<hr>');
         if ($newevent) {
 
             $mform->addElement('checkbox', 'repeat', get_string('repeatevent', 'calendar'), null, 'repeat');

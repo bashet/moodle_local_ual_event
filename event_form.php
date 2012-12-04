@@ -207,7 +207,7 @@ class event_form extends moodleform {
 
         $this->add_action_buttons(false, get_string('savechanges'));
         
-        $event_content .= $_form;
+        $event_content .= $this->$_form;
         
         return $event_content;
     }

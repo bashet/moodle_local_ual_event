@@ -68,6 +68,8 @@ class event_form extends moodleform {
             //$mform->addElement('label', 'calendar_print', get_string('calendarprintlabel', 'local_ual_event'), $options); //added by abdul
             //$mform->addElement('label', 'newevent', get_string('addanewevent', 'local_ual_event'), $options); //added by abdul
             
+            $mform->addElement('html', '<div id="group1">');
+            
             $mform->addElement('text', 'name', get_string('eventname','calendar'), 'size="50"');//added by abdul
             $mform->addRule('name', get_string('required'), 'required'); //added by abdul
             $mform->setType('name', PARAM_TEXT); //added by abdul
@@ -116,6 +118,8 @@ class event_form extends moodleform {
 
         $mform->addElement('date_time_selector', 'timestart', get_string('date')); //added by abdul
         $mform->addRule('timestart', get_string('required'), 'required'); //added by abdul
+        
+        $mform->addElement('html', '</div>');
         
         $mform->addElement('editor', 'description', get_string('eventdescription','calendar'), null, $this->_customdata->event->editoroptions);
         $mform->setType('description', PARAM_RAW);

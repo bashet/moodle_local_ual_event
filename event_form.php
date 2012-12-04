@@ -56,7 +56,7 @@ class event_form extends moodleform {
             
             $event_content .= html_writer::start_tag('div id=group1'); 
             
-            $event_content .= html_writer::start_tag('label', array('for'=>'name');
+            $event_content .= html_writer::start_tag('label', array('for'=>'name'));
             $event_content .= get_string('eventname','calendar');
             $event_content .= html_writer::end_tag('label');
             $event_content .= html_writer::tag('input', array('id'=>'name','name'=>'name','type'=>'text', 'size'=>'50'));

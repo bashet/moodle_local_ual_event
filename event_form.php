@@ -52,7 +52,7 @@ class event_form extends moodleform {
 
         if ($newevent) {
             
-            $event_content .= html_writer::start_tag('form' array('class'=>'mform', 'id'=>'mform1', 'accept-charset'=>'utf-8', 'method'=>'post', 'action'=>'event.php', 'autocomplete'=>'off'));
+            $event_content .= html_writer::start_tag('form', array('class'=>'mform', 'id'=>'mform1', 'accept-charset'=>'utf-8', 'method'=>'post', 'action'=>'event.php', 'autocomplete'=>'off'));
             
             $event_content .= html_writer::start_tag('div id=group1'); 
             

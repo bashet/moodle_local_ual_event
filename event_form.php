@@ -39,139 +39,83 @@ require_once($CFG->dirroot.'/lib/formslib.php');
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class event_form extends moodleform {
-    
-    protected $event_content ='';
-    
-    public function show_it() {
-        return $this->event_content;
-    }
-    
     /**
      * The form definition
      */
     function definition () {
         global $CFG, $USER, $OUTPUT;
         $mform = $this->_form;
-        $this->event_content ='';
         $newevent = (empty($this->_customdata->event) || empty($this->_customdata->event->id));
         $repeatedevents = (!empty($this->_customdata->event->eventrepeats) && $this->_customdata->event->eventrepeats>0);
         $hasduration = (!empty($this->_customdata->hasduration) && $this->_customdata->hasduration);
 
         if ($newevent) {
-            
-            $this->event_content .= html_writer::start_tag('form', array('class'=>'mform', 'id'=>'mform1', 'accept-charset'=>'utf-8', 'method'=>'post', 'action'=>'event.php', 'autocomplete'=>'off'));
-            
-            $this->event_content .= html_writer::start_tag('div id=group1'); 
-            
-            $this->event_content .= html_writer::start_tag('label', array('for'=>'name'));
-            $this->event_content .= get_string('eventname','calendar');
-            $this->event_content .= html_writer::end_tag('label');
-            $this->event_content .= html_writer::tag('input', array('id'=>'name','name'=>'name','type'=>'text', 'size'=>'50'));
-            //$mform->addElement('text', 'name', get_string('eventname','calendar'), 'size="50"');//added by abdul
-            
-            //$mform->addRule('name', get_string('required'), 'required'); //added by abdul
-            //$mform->setType('name', PARAM_TEXT); //added by abdul
-            
-            $this->event_content .= html_writer::start_tag('label', array('for'=>'eventtype'));
-            $this->event_content .= get_string('eventkind', 'calendar');
-            $this->event_content .= html_writer::end_tag('label');
-            $this->event_content .= html_writer::start_tag('select', array('id'=>'eventtype','name'=>'eventtype'));
-            
             $eventtypes = $this->_customdata->eventtypes;
             $options = array();
             if (!empty($eventtypes->user)) {
-                $this->event_content .= html_writer::start_tag('option', array('value'=>get_string('user')));
-                $this->event_content .= get_string('user');
-                $this->event_content .= html_writer::end_tag('option');
-                //$options['user'] = get_string('user');
+                $options['user'] = get_string('user');
             }
             if (!empty($eventtypes->groups) && is_array($eventtypes->groups)) {
-                $this->event_content .= html_writer::start_tag('option', array('value'=>get_string('group')));
-                $this->event_content .= get_string('group');
-                $this->event_content .= html_writer::end_tag('option');
-                //$options['group'] = get_string('group');
+                $options['group'] = get_string('group');
             }
             if (!empty($eventtypes->courses)) {
-                $this->event_content .= html_writer::start_tag('option', array('value'=>get_string('course')));
-                $this->event_content .= get_string('course');
-                $this->event_content .= html_writer::end_tag('option');
-                //$options['course'] = get_string('course');
+                $options['course'] = get_string('course');
             }
             if (!empty($eventtypes->site)) {
-                $this->event_content .= html_writer::start_tag('option', array('value'=>get_string('site')));
-                $this->event_content .= get_string('site');
-                $this->event_content .= html_writer::end_tag('option');
-                //$options['site'] = get_string('site');
+                $options['site'] = get_string('site');
             }
-            $this->event_content .= html_writer::end_tag('select');
+                      
+            //$mform->addElement('label', 'calendar_print', get_string('calendarprintlabel', 'local_ual_event'), $options); //added by abdul
+            //$mform->addElement('label', 'newevent', get_string('addanewevent', 'local_ual_event'), $options); //added by abdul
             
+            $mform->addElement('text', 'name', get_string('eventname','calendar'), 'size="50"');//added by abdul
+            $mform->addRule('name', get_string('required'), 'required'); //added by abdul
+            $mform->setType('name', PARAM_TEXT); //added by abdul
             
-            //$mform->addElement('select', 'eventtype', get_string('eventkind', 'calendar'), $options);
-            //$mform->addRule('eventtype', get_string('required'), 'required');
-            
+            $mform->addElement('select', 'eventtype', get_string('eventkind', 'calendar'), $options);
+            $mform->addRule('eventtype', get_string('required'), 'required');
+
             if (!empty($eventtypes->groups) && is_array($eventtypes->groups)) {
-                $this->event_content .= html_writer::start_tag('label', array('for'=>'groupid'));
-                $this->event_content .= get_string('typegroup', 'calendar');
-                $this->event_content .= html_writer::start_tag('select', array('id'=>'groupid', 'name'=>'groupid'));
-                
-                // re-visit for groups
-                //$mform->addElement('select', 'groupid', get_string('typegroup', 'calendar'), $groupoptions);
-                //$mform->disabledIf('groupid', 'eventtype', 'noteq', 'group');
-                
                 $groupoptions = array();
                 foreach ($eventtypes->groups as $group) {
-                    $this->event_content .= html_writer::start_tag('option', array('value'=>$group->name));
-                    $this->event_content .= $group->name;
-                    $this->event_content .= html_writer::end_tag('option');
-                    //$groupoptions[$group->id] = $group->name;
+                    $groupoptions[$group->id] = $group->name;
                 }
-                
-                $this->event_content .= html_writer::end_tag('select');
+                $mform->addElement('select', 'groupid', get_string('typegroup', 'calendar'), $groupoptions);
+                $mform->disabledIf('groupid', 'eventtype', 'noteq', 'group');
             }
         }
 
         // Add some hidden fields
-        $this->event_content .= html_writer::tag('input', array('name'=>'id', 'type'=>'hidden', 'value'=>'0'));
-        $this->event_content .= html_writer::tag('input', array('name'=>'courseid','type'=>'hidden'));
-        $this->event_content .= html_writer::tag('input', array('name'=>'userid','type'=>'hidden', 'value'=>$USER->id));
-        $this->event_content .= html_writer::tag('input', array('name'=>'modulename','type'=>'hidden'));
-        $this->event_content .= html_writer::tag('input', array('name'=>'instance','type'=>'hidden', 'value'=>'0'));
-        $this->event_content .= html_writer::tag('input', array('name'=>'action','type'=>'hidden'));
-        
-        //$mform->addElement('hidden', 'id');
-        //$mform->setType('id', PARAM_INT);
-        //$mform->setDefault('id', 0);
+        $mform->addElement('hidden', 'id');
+        $mform->setType('id', PARAM_INT);
+        $mform->setDefault('id', 0);
 
-        //$mform->addElement('hidden', 'courseid');
-        //$mform->setType('courseid', PARAM_INT);
+        $mform->addElement('hidden', 'courseid');
+        $mform->setType('courseid', PARAM_INT);
 
-        //$mform->addElement('hidden', 'userid');
-        //$mform->setType('userid', PARAM_INT);
-        //$mform->setDefault('userid', $USER->id);
+        $mform->addElement('hidden', 'userid');
+        $mform->setType('userid', PARAM_INT);
+        $mform->setDefault('userid', $USER->id);
 
-        //$mform->addElement('hidden', 'modulename');
-        //$mform->setType('modulename', PARAM_INT);
-        //$mform->setDefault('modulename', '');
+        $mform->addElement('hidden', 'modulename');
+        $mform->setType('modulename', PARAM_INT);
+        $mform->setDefault('modulename', '');
 
-        //$mform->addElement('hidden', 'instance');
-        //$mform->setType('instance', PARAM_INT);
-        //$mform->setDefault('instance', 0);
+        $mform->addElement('hidden', 'instance');
+        $mform->setType('instance', PARAM_INT);
+        $mform->setDefault('instance', 0);
 
-        //$mform->addElement('hidden', 'action');
-        //$mform->setType('action', PARAM_INT);
+        $mform->addElement('hidden', 'action');
+        $mform->setType('action', PARAM_INT);
 
         // Normal fields
         
         /*$mform->addElement('text', 'name', get_string('eventname','calendar'), 'size="50"');
         $mform->addRule('name', get_string('required'), 'required');
         $mform->setType('name', PARAM_TEXT);*///orginal
-        
-        //$event_content .= html_writer::tag('input', array('name'=>'action','type'=>'hidden'));
-        
+
         $mform->addElement('date_time_selector', 'timestart', get_string('date')); //added by abdul
         $mform->addRule('timestart', get_string('required'), 'required'); //added by abdul
-        
-        
         
         $mform->addElement('editor', 'description', get_string('eventdescription','calendar'), null, $this->_customdata->event->editoroptions);
         $mform->setType('description', PARAM_RAW);
@@ -201,6 +145,7 @@ class event_form extends moodleform {
             $mform->disabledIf('repeats','repeat','notchecked');
 
         } else if ($repeatedevents) {
+
             $mform->addElement('hidden', 'repeatid');
             $mform->setType('repeatid', PARAM_INT);
 
@@ -213,8 +158,6 @@ class event_form extends moodleform {
         }
 
         $this->add_action_buttons(false, get_string('savechanges'));
-        
-        $this->event_content .= $mform->display();
     }
 
     /**
